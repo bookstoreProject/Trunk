@@ -6,7 +6,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import entities.Client;
-
+/*
+ * Test Juliette
+ */
 @Stateless
 public class ClientManager {
   @PersistenceContext
