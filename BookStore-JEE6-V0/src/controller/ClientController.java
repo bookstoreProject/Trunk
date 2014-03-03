@@ -13,6 +13,7 @@ import javax.persistence.NoResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import producer.LoggedIn;
 import service.ClientService;
 import model.ClientManager;
 import model.ClientServiceEJB;
@@ -40,6 +41,7 @@ public class ClientController implements Serializable {
 	private UIInput UiLogin;
 
 	@Produces
+	@LoggedIn
 	@Named
 	public Client getCurrentClient() {
 		return currentClient;
