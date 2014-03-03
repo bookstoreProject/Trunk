@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import entities.Client;
 /*
- * Test Juliette 2
+ * Test Juliette 3
  */
 @Stateless
 public class ClientManager {
