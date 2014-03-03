@@ -11,7 +11,7 @@
     <h:form id="contentForm">
       <h:panelGrid columns="3">
         <h:outputText value="#{strings['Client.login']}" />
-        <h:inputText id="login" value="#{loginForm.login}" />
+        <h:inputText id="login" value="#{loginForm.login}" binding="#{clientController.uiLogin}" />
         <h:message for="login"></h:message>
         <h:outputText value="#{strings['Client.password']}" />
         <h:inputSecret id="password" value="#{loginForm.password}" />

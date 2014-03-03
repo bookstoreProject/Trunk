@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
+import javax.faces.component.UIInput;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -28,16 +29,17 @@ public class ClientController implements Serializable {
 	// private ClientManager clientManager;
 	@Inject
 	private ClientService clientService;
-
-	private Logger log = LoggerFactory.getLogger(ClientController.class);
-
+	
 	@Inject
 	private MessageBean messageBean;
 
+	private Logger log = LoggerFactory.getLogger(ClientController.class);
+
 	private Client currentClient;
+	
+	private UIInput UiLogin;
 
 	@Produces
-	// @LoggedIn
 	@Named
 	public Client getCurrentClient() {
 		return currentClient;
@@ -48,7 +50,7 @@ public class ClientController implements Serializable {
 		// clientManager.login(loginForm.getLogin(),loginForm.getPassword());
 		currentClient = clientService.login(loginForm.getLogin(), loginForm.getPassword());
 		if (currentClient == null) {
-			messageBean.addMessage("clientNotFound");
+			messageBean.addMessage(UiLogin,"clientNotFound");
 			return null;
 		}
 		return "welcome";
@@ -61,5 +63,13 @@ public class ClientController implements Serializable {
 	public String doLogout() {
 		currentClient = null;
 		return "welcome";
+	}
+
+	public UIInput getUiLogin() {
+		return UiLogin;
+	}
+
+	public void setUiLogin(UIInput uiLogin) {
+		UiLogin = uiLogin;
 	}
 }
