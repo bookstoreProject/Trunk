@@ -4,11 +4,11 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 	<h:form id="leftForm">
 		<h:dataTable value="#{categoryController.categoryList}" var="category">
-			<f:facet name="header">Categories</f:facet>
+			<f:facet name="header"><h:outputText value="#{strings['Category.title']}"/> </f:facet>
 			<h:column>
-				<!-- <h:commandLink action="#{categoryController.selectClient(.id)}"> -->
+				<h:commandLink action="#{categoryController.selectCategory(category.id)}"> 
 					<h:outputText value="#{category.title}" />
-				<!--</h:commandLink> -->
+				</h:commandLink> 
 			</h:column>
 		</h:dataTable>
 

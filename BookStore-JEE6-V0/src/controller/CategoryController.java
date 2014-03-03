@@ -21,10 +21,26 @@ public class CategoryController {
 	@Produces
 	@Named
 	private List<Category> categoryList;
+	
+	@Produces
+	@Named
+	private Category selectedCategory;
 
 	public List<Category> getCategoryList() {
 		categoryList = category.findAll();
 		return categoryList;
+	}
+	
+	public Category getSelectedCategory() {
+		return selectedCategory;
+	}
+
+	public String selectCategory(Long id) {
+		selectedCategory =  category.find(id);
+		if (selectedCategory == null) {
+			return null;
+		}
+		return "category";	
 	}
 
 }
