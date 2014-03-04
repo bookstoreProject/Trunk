@@ -32,12 +32,16 @@ public class OrderController implements Serializable{
 	
 
 	public String buyBook(Long id){
+		if(clientController.getOrder()==null)
+			return "login";
 		Book book = bookService.find(id);
 		clientController.getOrder().addOne(book);		
 		return "cart";
 	}
 	
 	public String removeBook(Long id){
+		if(clientController.getOrder()==null)
+			return "login";
 		Book book = bookService.find(id);
 		clientController.getOrder().removeOne(book);		
 		return "cart";

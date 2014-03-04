@@ -68,7 +68,19 @@ public class ClientController implements Serializable {
 		order.setClient(currentClient);
 		return "welcome";
 	}
-
+	
+	public String doRegister() {
+		return "register";
+	}
+	
+	public String doRegisterNewAccount(){
+		Client c = new Client();
+		c.setLogin(loginForm.getLogin());
+		c.setPassword(loginForm.getPassword());
+		clientService.create(c);
+		return doLogin();
+	}
+	
 	public boolean isLoggedIn() {
 		return currentClient != null;
 	}

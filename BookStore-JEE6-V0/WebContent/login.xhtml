@@ -18,7 +18,11 @@
         <h:message for="password"></h:message>
       </h:panelGrid>
       <h:commandButton action="#{clientController.doLogin}" value="#{strings['button.login']}" />
+      <br/>
       <h:messages globalOnly="true" />
      </h:form>
+      <h:form id="registerForm">
+      	<h:commandButton action="#{clientController.doRegister}" value="#{strings['button.register']}" />
+   	</h:form>
   </ui:define>
 </ui:composition>
