@@ -1,5 +1,9 @@
 package entities;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,127 +19,144 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@Entity()
-@NamedQueries({
-@NamedQuery(name = "Book.findAll", query = "Select b From Book b"),
-@NamedQuery(name = "Book.findLikeOnTitle", query = "Select b From Book b where b.title like :like"),
-@NamedQuery(name = "Book.findByCategory", query = "Select b From Book b where b.category = :category")
-})
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
+@Entity()
+@NamedQueries({ @NamedQuery(name = "Book.findAll", query = "Select b From Book b"),
+		@NamedQuery(name = "Book.findLikeOnTitle", query = "Select b From Book b where b.title like :like"),
+		@NamedQuery(name = "Book.findByCategory", query = "Select b From Book b where b.category = :category") })
 @XmlRootElement
 public class Book extends Persistent {
-  private String isbn;
-  private String title = "";
-  private Category category;
-  private java.math.BigDecimal price = new BigDecimal(0);;
-  private java.util.Date date = new Date();
-  private List<Author> authors;
-  private byte[] photo;
-  private List<OrderItem> orderItems = new ArrayList();;
+	private String isbn;
+	private String title = "";
+	private Category category;
+	private java.math.BigDecimal price = new BigDecimal(0);;
+	private java.util.Date date = new Date();
+	private List<Author> authors;
+	private byte[] photo;
+	private List<OrderItem> orderItems = new ArrayList();
 
-  public Book() {
-    authors = new ArrayList();
+	private StreamedContent streamedPicture;
 
-  }
+	public Book() {
+		authors = new ArrayList();
 
-  public boolean equals(Object other) {
-    if (other != null && other instanceof Book)
-      return getTitle().equals(((Book) other).getTitle());
-    return false;
-  }
+	}
 
-  public int hashCode() {
-    return getTitle().hashCode();
-  }
+	public boolean equals(Object other) {
+		if (other != null && other instanceof Book)
+			return getTitle().equals(((Book) other).getTitle());
+		return false;
+	}
 
-  public String toString() {
-    return "Id:" + getId() + " Title:" + getTitle() + " Price:" + getPrice() + " Category:" + getCategory()
-        + " Authors:" + getAuthors();
-  }
+	public int hashCode() {
+		return getTitle().hashCode();
+	}
 
-  public String getIsbn() {
-    return isbn;
-  }
+	public String toString() {
+		return "Id:" + getId() + " Title:" + getTitle() + " Price:" + getPrice() + " Category:" + getCategory() + " Authors:"
+				+ getAuthors();
+	}
 
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
-  }
+	public String getIsbn() {
+		return isbn;
+	}
 
-  public String getTitle() {
-    return this.title;
-  }
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+	public String getTitle() {
+		return this.title;
+	}
 
-  @ManyToOne()
-  public Category getCategory() {
-    return this.category;
-  }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-  public void setCategory(Category category) {
-    this.category = category;
-  }
+	@ManyToOne()
+	public Category getCategory() {
+		return this.category;
+	}
 
-  public java.math.BigDecimal getPrice() {
-    return this.price;
-  }
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
-  public void setPrice(java.math.BigDecimal price) {
-    this.price = price;
-  }
+	public java.math.BigDecimal getPrice() {
+		return this.price;
+	}
 
-  @Temporal(TemporalType.DATE)
-  public java.util.Date getDate() {
-    return this.date;
-  }
+	public void setPrice(java.math.BigDecimal price) {
+		this.price = price;
+	}
 
-  public void setDate(java.util.Date date) {
-    this.date = date;
-  }
+	@Temporal(TemporalType.DATE)
+	public java.util.Date getDate() {
+		return this.date;
+	}
 
-  @ManyToMany
-  // @JoinTable(name = "BookAuthor", joinColumns = { @JoinColumn(name =
-  // "bookId") }, inverseJoinColumns = { @JoinColumn(name = "authorId") })
-  public List<Author> getAuthors() {
-    return this.authors;
-  }
+	public void setDate(java.util.Date date) {
+		this.date = date;
+	}
 
-  public void setAuthors(List<Author> authors) {
-    this.authors = authors;
-  }
+	@ManyToMany
+	// @JoinTable(name = "BookAuthor", joinColumns = { @JoinColumn(name =
+	// "bookId") }, inverseJoinColumns = { @JoinColumn(name = "authorId") })
+	public List<Author> getAuthors() {
+		return this.authors;
+	}
 
-  public void addAuthor(Author author) {
-    authors.add(author);
-  }
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
 
-  public void removeAuthor(Author author) {
-    authors.remove(author);
-  }
+	public void addAuthor(Author author) {
+		authors.add(author);
+	}
 
-  @Lob
-  @Column(length = 100000)
-  // La taille de la colonne est nécessaire pour Derby
-  public byte[] getPhoto() {
-    return this.photo;
-  }
+	public void removeAuthor(Author author) {
+		authors.remove(author);
+	}
 
-  public void setPhoto(byte[] photo) {
-    this.photo = photo;
-  }
+	@Lob
+	@Column(length = 100000)
+	// La taille de la colonne est nécessaire pour Derby
+	public byte[] getPhoto() {
+		return this.photo;
+	}
 
-  @XmlTransient
-  @OneToMany(mappedBy = "book")
-  public List<OrderItem> getOrderItems() {
-    return orderItems;
-  }
+	@Transient
+	public StreamedContent getStreamedPicture() {
+		if (streamedPicture == null && photo != null) {
+			try {
+				ByteArrayOutputStream os = new ByteArrayOutputStream();
+				os.write(photo);
+				streamedPicture = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png");
+			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
+			}
+		}
+		return streamedPicture;
+	}
 
-  public void setOrderItems(List<OrderItem> orderItems) {
-    this.orderItems = orderItems;
-  }
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+
+	@XmlTransient
+	@OneToMany(mappedBy = "book")
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
 
 }

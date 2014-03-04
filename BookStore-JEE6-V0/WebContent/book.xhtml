@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+  template="template.xhtml">
+  <ui:define name="top">
+    <ui:include src="top.xhtml" />
+  </ui:define>
+  <ui:define name="left">
+    <ui:include src="left.xhtml" />
+  </ui:define>
+  <ui:define name="content">
+    	<h:outputText value="#{strings['Book.titleText']} #{selectedBook.title}" />
+    	<h:panelGrid columns="1">
+    	<h:dataTable value="#{selectedBook.authors}" var="author">
+			<f:facet name="header">	<h:outputText value="#{strings['Book.author']}"/> </f:facet>
+			<h:column>
+				<h:outputText value="#{author.firstName} #{author.lastName}" />
+			</h:column>
+		</h:dataTable>
+		<h:outputText value="#{strings['Book.price']} : #{selectedBook.price} #{strings['Book.euro']}"/>
+		<p:graphicImage  value="#{selectedBook.streamedPicture}" cache="false" width="50"  id="grpImage" height="80"/>
+    	</h:panelGrid>
+   </ui:define>
+</ui:composition>
