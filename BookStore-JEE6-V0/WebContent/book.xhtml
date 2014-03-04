@@ -18,6 +18,11 @@
 		</h:dataTable>
 		<h:outputText value="#{strings['Book.price']} : #{selectedBook.price} #{strings['Book.euro']}"/>
 		<p:graphicImage  value="#{selectedBook.streamedPicture}" cache="false" width="50"  id="grpImage" height="80"/>
+		<h:form id="bookForm">
+			<h:commandLink action="#{orderController.buyBook(selectedBook.id)}">
+					<h:outputText value="#{strings['Book.buy']}" />
+			</h:commandLink>
+		</h:form>
     	</h:panelGrid>
    </ui:define>
 </ui:composition>

@@ -49,6 +49,5 @@ public class BookController implements Serializable{
 		}
 		return "book";	
 	}
-
 	
 }

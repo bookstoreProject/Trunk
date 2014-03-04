@@ -18,6 +18,7 @@ import service.ClientService;
 import model.ClientManager;
 import model.ClientServiceEJB;
 import entities.Client;
+import entities.Order;
 import form.LoginForm;
 
 @Named
@@ -40,6 +41,14 @@ public class ClientController implements Serializable {
 	
 	private UIInput UiLogin;
 
+	private Order order;
+	
+	@Produces
+	@Named
+	public Order getOrder() {
+		return order;
+	}
+	
 	@Produces
 	@LoggedIn
 	@Named
@@ -55,6 +64,8 @@ public class ClientController implements Serializable {
 			messageBean.addMessage(UiLogin,"clientNotFound");
 			return null;
 		}
+		order = new Order();
+		order.setClient(currentClient);
 		return "welcome";
 	}
 
