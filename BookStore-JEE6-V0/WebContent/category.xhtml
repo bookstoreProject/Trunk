@@ -13,7 +13,7 @@
 		<h:outputText
 			value="#{strings['Category.information']} : #{selectedCategory.title}" />
 		<h:form id="category">
-			<h:dataTable value="#{selectedCategory.books}" var="book">
+			<h:dataTable value="#{categoryController.selectedCategory.books}" var="book">
 				<f:facet name="header">
 					<h:outputText value="#{strings['Book.title']}" />
 				</f:facet>

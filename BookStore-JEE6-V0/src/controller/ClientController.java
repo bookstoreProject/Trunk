@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
@@ -13,6 +14,7 @@ import javax.persistence.NoResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dto.OrderDTO;
 import producer.LoggedIn;
 import service.ClientService;
 import model.ClientManager;
@@ -43,7 +45,8 @@ public class ClientController implements Serializable {
 
 	private Order order;
 	
-	@Produces
+	private List<OrderDTO> ordersDTO;
+	
 	@Named
 	public Order getOrder() {
 		return order;
@@ -54,6 +57,11 @@ public class ClientController implements Serializable {
 	@Named
 	public Client getCurrentClient() {
 		return currentClient;
+	}
+	
+	@Named
+	public List<OrderDTO> getOrdersDTO() {
+		return ordersDTO;
 	}
 
 	public String doLogin() {
@@ -67,6 +75,19 @@ public class ClientController implements Serializable {
 		order = new Order();
 		order.setClient(currentClient);
 		return "welcome";
+	}
+	
+	public String account() {
+		for(Order o : currentClient.getCommandes()){
+			//OrderDTO orderDto = new OrderDTO();
+			System.out.println(o.getItems().get(0).getId());
+			System.out.println("chargement ok");
+			//orderDto.getItems().addAll(o.getItems());
+			//orderDto.setDate(o.getDate());
+			//orderDto.setTotal(o.getTotal());
+			//ordersDTO.add(orderDto);
+		}
+		return "account";
 	}
 	
 	public String doRegister() {

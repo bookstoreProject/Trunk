@@ -10,6 +10,7 @@
 		<ui:include src="left.xhtml" />
 	</ui:define>
 	<ui:define name="content">
+		<h:messages globalOnly="true" />
 		<h:form id="cartForm">
 			<p:dataTable value="#{clientController.order.items}" var="item">
 				<p:column>
@@ -44,7 +45,7 @@
 				</p:column>
 				
 				<p:column>
-					<h:commandLink action="#{orderController.buyBook(item.book.id)}">
+					<h:commandLink action="#{orderController.addBook(item.book.id)}">
 						<h:outputText value="Ajouter" />
 					</h:commandLink>
 				</p:column>
@@ -54,6 +55,11 @@
 					</h:commandLink>
 				</p:column>
 			</p:dataTable>
+		</h:form>
+		<h:form>
+			<h:commandLink action="#{orderController.buyOrder}">
+					<h:outputText value="#{strings['Order.validerCommande']}" />
+			</h:commandLink>
 		</h:form>
 	</ui:define>
 </ui:composition>

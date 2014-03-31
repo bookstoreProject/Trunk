@@ -8,18 +8,19 @@
     <ui:include src="left.xhtml" />
   </ui:define>
   <ui:define name="content">
-    	<h:outputText value="#{strings['Book.titleText']} #{selectedBook.title}" />
+  		<h:messages globalOnly="true" />
+    	<h:outputText value="#{strings['Book.titleText']} #{bookController.selectedBook.title}" />
     	<h:panelGrid columns="1">
-    	<h:dataTable value="#{selectedBook.authors}" var="author">
+    	<h:dataTable value="#{bookController.selectedBook.authors}" var="author">
 			<f:facet name="header">	<h:outputText value="#{strings['Book.author']}"/> </f:facet>
 			<h:column>
 				<h:outputText value="#{author.firstName} #{author.lastName}" />
 			</h:column>
 		</h:dataTable>
-		<h:outputText value="#{strings['Book.price']} : #{selectedBook.price} #{strings['Book.euro']}"/>
-		<p:graphicImage  value="#{selectedBook.streamedPicture}" cache="false" width="50"  id="grpImage" height="80"/>
+		<h:outputText value="#{strings['Book.price']} : #{bookController.selectedBook.price} #{strings['Book.euro']}"/>
+		<p:graphicImage  value="#{bookController.streamedPicture}" cache="false" width="50"  id="grpImage" height="80"/>
 		<h:form id="bookForm">
-			<h:commandLink action="#{orderController.buyBook(selectedBook.id)}">
+			<h:commandLink action="#{orderController.buyBook(bookController.selectedBook.id)}">
 					<h:outputText value="#{strings['Book.buy']}" />
 			</h:commandLink>
 		</h:form>

@@ -20,11 +20,9 @@ public class CategoryController implements Serializable {
 	@Inject
 	private CategoryService category;
 
-	@Produces
 	@Named
 	private List<Category> categoryList;
 	
-	@Produces
 	@Named
 	private Category selectedCategory;
 

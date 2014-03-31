@@ -7,14 +7,14 @@
       <h:panelGrid columns="2">
         <h:panelGroup>
           <h:outputText value="Votre panier: " />
-         <!--   <h:outputText value="#{clientController.order.size}" /> -->
+          <h:outputText value="#{clientController.order.size}" />
         </h:panelGroup>
         <h:panelGroup rendered="#{clientController.loggedIn}">
           <h:outputText value="#{clientController.currentClient.login}" />
           <br/>
           <h:commandLink action="#{clientController.doLogout}" value="#{strings['button.logout']}" />
           <br/>
-          <h:commandLink action="account" value="Votre compte" />
+          <h:commandLink action="#{clientController.account}" value="Votre compte" />
         </h:panelGroup>
         <h:panelGroup rendered="#{not clientController.loggedIn}">
           <h:commandLink action="login" value="#{strings['button.login']}" immediate="true" />

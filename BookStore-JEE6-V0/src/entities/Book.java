@@ -41,8 +41,6 @@ public class Book extends Persistent {
 	private byte[] photo;
 	private List<OrderItem> orderItems = new ArrayList();
 
-	private StreamedContent streamedPicture;
-
 	public Book() {
 		authors = new ArrayList();
 
@@ -131,20 +129,7 @@ public class Book extends Persistent {
 		return this.photo;
 	}
 
-	@Transient
-	public StreamedContent getStreamedPicture() {
-		if (streamedPicture == null && photo != null) {
-			try {
-				ByteArrayOutputStream os = new ByteArrayOutputStream();
-				os.write(photo);
-				streamedPicture = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png");
-			} catch (FileNotFoundException e) {
-			} catch (IOException e) {
-			}
-		}
-		return streamedPicture;
-	}
-
+	
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
