@@ -8,7 +8,7 @@ public class Mail {
 
 	public void send(Client c) {
 		String myEmailId = "marcsayd@gmail.com";
-		String myPassword = "marklechaud";
+		String myPassword = "HSBC!!1234";
 		String senderId = "bookstore@gmail.com";
 		try {
 			MultiPartEmail email = new MultiPartEmail();
