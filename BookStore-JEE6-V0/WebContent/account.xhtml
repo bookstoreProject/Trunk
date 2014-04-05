@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="template.xhtml">
+	<ui:define name="top">
+		<ui:include src="top.xhtml" />
+	</ui:define>
+	<ui:define name="left">
+		<ui:include src="left.xhtml" />
+	</ui:define>
+	<ui:define name="content">
+		<h:messages globalOnly="true" />
+			<h:outputText value="#{currentClient.login}" />
+			<h:form id="accountDetailForm">
+			<p:dataTable value="#{clientController.currentClient.commandes}" var="order">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{strings['Order.price']}" />
+					</f:facet>
+					<h:outputText value="#{order.date}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{strings['Order.quantity']}" />
+					</f:facet>
+					<h:outputText value="#{order.total}" />
+				</p:column>
+				<p:column>
+					<h:commandLink action="#{clientController.doAccountDetail(order.id)}">
+						<h:outputText value="#{strings['Order.detail']}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+			</h:form>
+	</ui:define>
+</ui:composition>

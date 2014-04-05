@@ -73,7 +73,7 @@ public class OrderController implements Serializable{
 		GeneratePdf pdf = new GeneratePdf();
 		pdfFile = pdf.GeneratePdfFromOrder(clientController.getOrder());
 		Mail message = new Mail();
-		message.send();
+		message.send(clientController.getCurrentClient());
 		messageBean.addMessage("orderBought");
 		return "cart";
 	}

@@ -29,6 +29,7 @@ public class Client extends Persistent{
   private String login;
   private String password;
   private List<Order> commandes = new ArrayList<Order>();
+  private String email;
   
   public boolean equals(Object other){
     if(other != null && other instanceof Client)
@@ -53,8 +54,15 @@ public class Client extends Persistent{
   public void setPassword(String password) {
     this.password = password;
   }
-
- // @Noncacheable
+  
+  public String getEmail() {
+	return email;
+  }
+  public void setEmail(String email) {
+		this.email = email;
+  }
+  
+// @Noncacheable
 //  @OneToMany(mappedBy="client",cascade ={CascadeType.PERSIST, CascadeType.REMOVE})
   @OneToMany(mappedBy="client",cascade ={CascadeType.ALL})
   public List<Order> getCommandes() {

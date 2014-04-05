@@ -106,6 +106,7 @@ public class ClientController implements Serializable {
 		Client c = new Client();
 		c.setLogin(loginForm.getLogin());
 		c.setPassword(loginForm.getPassword());
+		c.setEmail(loginForm.getEmail());
 		clientService.create(c);
 		return doLogin();
 	}
