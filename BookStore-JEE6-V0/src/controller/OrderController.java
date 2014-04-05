@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
@@ -8,6 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.StreamedContent;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
 import entities.Book;
@@ -15,6 +21,8 @@ import entities.Client;
 import entities.Order;
 import service.BookService;
 import service.OrderService;
+import tools.GeneratePdf;
+import tools.Mail;
 
 
 @Named
@@ -32,8 +40,12 @@ public class OrderController implements Serializable{
 	
 	@Inject
 	private MessageBean messageBean;
-
 	
+	private StreamedContent pdfFile;
+	
+	public StreamedContent getPdfFile() {
+		return pdfFile;
+	}
 
 	public String buyBook(Long id){
 		if(clientController.getOrder()==null)
@@ -58,7 +70,12 @@ public class OrderController implements Serializable{
 
 	public String buyOrder(){
 		orderService.create(clientController.getOrder());
+		GeneratePdf pdf = new GeneratePdf();
+		pdfFile = pdf.GeneratePdfFromOrder(clientController.getOrder());
+		Mail message = new Mail();
+		message.send();
 		messageBean.addMessage("orderBought");
 		return "cart";
 	}
+	
 }

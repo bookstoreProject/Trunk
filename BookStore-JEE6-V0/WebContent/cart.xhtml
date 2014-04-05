@@ -60,6 +60,9 @@
 			<h:commandLink action="#{orderController.buyOrder}">
 					<h:outputText value="#{strings['Order.validerCommande']}" />
 			</h:commandLink>
+			<h:commandButton value="Download">
+				<p:fileDownload value="#{orderController.pdfFile}" />
+			</h:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

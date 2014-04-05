@@ -44,6 +44,10 @@
       <from-outcome>order</from-outcome>
       <to-view-id>/order.xhtml</to-view-id>
     </navigation-case>
+        <navigation-case>
+      <from-outcome>account-detail</from-outcome>
+      <to-view-id>/account-detail.xhtml</to-view-id>
+    </navigation-case>
   </navigation-rule>
     
 
